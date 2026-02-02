@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geobloking | Software & Automatización</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
+        body { background-color: #1a0b45; color: white; font-family: 'Outfit', sans-serif; scroll-behavior: smooth; }
+        .hero-bg { background: radial-gradient(circle at center, #2d1370 0%, #1a0b45 100%); }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .wa-menu { position: fixed; bottom: 90px; right: 20px; display: none; flex-direction: column; gap: 10px; z-index: 1000; }
+        .wa-item { color: white; padding: 12px 20px; border-radius: 50px; display: flex; align-items: center; gap: 10px; font-weight: bold; transition: 0.3s; }
+    </style>
+</head>
+<body>
+
+    <nav class="flex justify-between items-center p-4 md:px-12 sticky top-0 bg-[#1a0b45]/90 backdrop-blur-md z-50 border-b border-white/10">
+        <div class="flex items-center gap-2">
+            <div class="font-black text-xl tracking-tighter">GEO<span class="text-cyan-400">BLOKING</span></div>
+        </div>
+        <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest">
+            <a href="#inicio" class="hover:text-cyan-400">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#contacto" class="bg-cyan-500 text-black px-6 py-2 rounded-full font-black">Cotizar</a>
+        </div>
+    </nav>
+
+    <header id="inicio" class="hero-bg py-24 text-center px-4">
+        <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
+            INGENIERÍA <br><span class="text-cyan-400 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">INTELIGENTE</span>
+        </h1>
+        <p class="text-gray-300 max-w-2xl mx-auto text-lg mb-10">
+            Creamos software a medida, automatización 23/7, pasarelas Webpay y biometría facial.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="#contacto" class="bg-gradient-to-r from-orange-500 to-pink-500 px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest shadow-xl">Iniciar Proyecto</a>
+        </div>
+    </header>
+
+    <section class="py-12 bg-black/30">
+        <div class="max-w-6xl mx-auto text-center px-4">
+            <h2 class="text-cyan-400 text-xs font-bold uppercase tracking-[0.3em] mb-8">Nuestra Armería Técnica</h2>
+            <div class="flex flex-wrap justify-center gap-6 text-sm font-bold opacity-60">
+                <span>PYTHON</span> • <span>JAVA</span> • <span>KOTLIN</span> • <span>MYSQL</span> • <span>MONGODB</span> • <span>AWS</span> • <span>POWER BI</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-black mb-16 text-center italic tracking-tighter">EQUIPO EJECUTIVO</h2>
+            <div class="grid md:grid-cols-3 gap-12 text-center">
+                <div class="glass p-8 rounded-3xl">
+                    <div class="w-16 h-16 bg-orange-600 rounded-full mx-auto mb-4 flex items-center justify-center font-black">VD</div>
+                    <h3 class="font-bold text-lg">Victor Donoso Avila</h3>
+                    <p class="text-cyan-400 text-xs">CEO & Fundador</p>
+                    <p class="mt-4 text-gray-400 text-xs font-bold">+569 4981 8809</p>
+                </div>
+                <div class="glass p-8 rounded-3xl border-cyan-500/30">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center font-black">WR</div>
+                    <h3 class="font-bold text-lg">Williams Rhemin Hernandez</h3>
+                    <p class="text-cyan-400 text-xs">Co-CEO & Ventas</p>
+                    <p class="mt-4 text-gray-400 text-xs font-bold">+56 9 4597 9537</p>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center font-black">EM</div>
+                    <h3 class="font-bold text-lg">Ernestina Moreno Perez</h3>
+                    <p class="text-cyan-400 text-xs">Directora Administrativa</p>
+                    <p class="mt-4 text-gray-400 text-xs font-bold">+56 9 7356 8377</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto glass p-10 rounded-[40px] border-white/5">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-black mb-6 italic">GEO<br><span class="text-cyan-400">CONTACTO</span></h2>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Centraliza tus requerimientos de software y automatización con nosotros.</p>
+                    <div class="text-cyan-400 font-bold text-sm">geobloking@gmail.com</div>
+                </div>
+                <form action="https://formsubmit.co/geobloking@gmail.com" method="POST" class="space-y-4">
+                    <input type="text" name="name" placeholder="Tu Nombre" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-cyan-500 transition" required>
+                    <input type="email" name="email" placeholder="Email de contacto" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-cyan-500 transition" required>
+                    <textarea name="message" rows="4" placeholder="Háblanos de tu proyecto..." class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none focus:border-cyan-500 transition" required></textarea>
+                    <button type="submit" class="w-full bg-cyan-500 text-black p-4 rounded-2xl font-black uppercase tracking-widest hover:bg-white transition shadow-lg shadow-cyan-500/20">Enviar a Geobloking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="wa-menu" class="wa-menu">
+        <a href="https://wa.me/56949818809" target="_blank" class="wa-item bg-orange-600 hover:scale-105"><i class="fab fa-whatsapp"></i> Victor (CEO)</a>
+        <a href="https://wa.me/56945979537" target="_blank" class="wa-item bg-blue-600 hover:scale-105"><i class="fab fa-whatsapp"></i> Williams (Ventas)</a>
+        <a href="https://wa.me/56973568377" target="_blank" class="wa-item bg-purple-600 hover:scale-105"><i class="fab fa-whatsapp"></i> Ernestina</a>
+    </div>
+
+    <button onclick="toggleWA()" class="fixed bottom-5 right-5 bg-green-500 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-[1001] border-4 border-white/10 hover:scale-110 transition">
+        <i class="fab fa-whatsapp text-4xl"></i>
+    </button>
+
+    <script>
+        function toggleWA() {
+            const m = document.getElementById('wa-menu');
+            m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+        }
+        window.onclick = function(e) {
+            if (!e.target.closest('button')) document.getElementById('wa-menu').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
