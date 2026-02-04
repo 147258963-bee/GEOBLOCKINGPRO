@@ -12,7 +12,7 @@
         body { background-color: #050214; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
         .hero-mesh { background: radial-gradient(circle at 50% 50%, #1a0b45 0%, #050214 100%); }
         
-        /* Diseño de Nodos de Inteligencia (Iconos) */
+        /* Diseño de Nodos de Inteligencia */
         .node-card {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -25,12 +25,6 @@
             border-color: var(--cyan);
             background: rgba(34, 211, 238, 0.03);
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .icon-wrapper {
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 15px rgba(34, 211, 238, 0.3));
         }
 
         /* Chatbot Humanizado EMSA */
@@ -48,8 +42,17 @@
         .bot-style { background: rgba(255, 255, 255, 0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid rgba(255,255,255,0.08); }
         .user-style { background: var(--cyan); color: #050214; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 700; }
         
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+        /* Menú de WhatsApp Flotante */
+        #waMenu {
+            position: fixed; bottom: 170px; right: 30px;
+            display: none; flex-direction: column; gap: 12px; z-index: 2100;
+        }
+        .wa-contact-btn {
+            display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+            border-radius: 50px; color: white; font-weight: 700; font-size: 13px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: 0.3s;
+        }
+        .wa-contact-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
     </style>
 </head>
 <body class="hero-mesh min-h-screen">
@@ -60,13 +63,13 @@
             <span class="font-black text-xl tracking-tighter italic uppercase">GEO<span class="text-cyan-400">BLOKING</span> PRO</span>
         </div>
         <div class="hidden md:flex gap-8 items-center text-[10px] font-black uppercase tracking-[0.3em]">
-            <a href="mailto:geobloking@gmail.com" class="hover:text-cyan-400 transition">geobloking@gmail.com</a>
+            <a href="mailto:geobloking@gmail.com" class="text-cyan-400 hover:text-white transition decoration-cyan-400 underline underline-offset-4 italic">geobloking@gmail.com</a>
             <a href="https://instagram.com/geobloking" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram text-lg"></i></a>
         </div>
     </nav>
 
     <header class="pt-48 pb-32 text-center px-6">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-7xl md:text-9xl font-black tracking-tighter italic leading-none mb-8">
                 TECH <span class="text-cyan-400">EVOLUTION</span>
             </h1>
@@ -74,67 +77,77 @@
                 Arquitectura de software robusta y biometría avanzada. Humanizamos la tecnología para potenciar tu visión.
             </p>
             <div class="flex flex-wrap justify-center gap-5">
-                <button onclick="toggleEmsa()" class="bg-cyan-500 text-black px-12 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white transition shadow-lg shadow-cyan-500/20">Iniciar Consulta</button>
-                <a href="https://wa.me/56949818809" target="_blank" class="border border-white/10 px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest flex items-center gap-2 hover:bg-white/5 transition">
-                    <i class="fab fa-whatsapp text-green-500 text-lg"></i> Contacto Directo
+                <button onclick="toggleEmsa()" class="bg-cyan-500 text-black px-12 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white transition shadow-lg shadow-cyan-500/20">Iniciar Consulta IA</button>
+                <a href="mailto:geobloking@gmail.com" class="border border-white/10 px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest flex items-center gap-2 hover:bg-white/5 transition">
+                    <i class="fas fa-envelope text-cyan-400"></i> Enviar Email
                 </a>
             </div>
         </div>
     </header>
 
     <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 grid md:grid-cols-3 gap-10">
-        <div class="node-card group">
-            <div class="icon-wrapper text-orange-500 group-hover:scale-110 transition duration-500"><i class="fas fa-microchip"></i></div>
+        <div class="node-card">
+            <div class="text-5xl text-orange-500 mb-6"><i class="fas fa-microchip"></i></div>
             <h3 class="text-2xl font-black mb-2">Víctor Donoso</h3>
             <p class="text-[11px] text-orange-500 font-black uppercase tracking-[0.3em] mb-6">CEO & Lead Architect</p>
-            <p class="text-gray-500 text-sm leading-relaxed">Especialista en flujos complejos con **Python** y orquestación de servicios en **AWS Cloud**.</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Arquitectura AWS y desarrollo CORE con Python.</p>
         </div>
-
-        <div class="node-card group">
-            <div class="icon-wrapper text-cyan-400 group-hover:scale-110 transition duration-500"><i class="fas fa-mobile-alt"></i></div>
+        <div class="node-card">
+            <div class="text-5xl text-cyan-400 mb-6"><i class="fas fa-mobile-alt"></i></div>
             <h3 class="text-2xl font-black mb-2">Williams Rhemin</h3>
-            <p class="text-[11px] text-cyan-400 font-black uppercase tracking-[0.3em] mb-6">Co-CEO & Mobile Expert</p>
-            <p class="text-gray-500 text-sm leading-relaxed">Líder en desarrollo de aplicaciones nativas con **Kotlin** y optimización de experiencia de usuario.</p>
+            <p class="text-[11px] text-cyan-400 font-black uppercase tracking-[0.3em] mb-6">Co-CEO & Sales Expert</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Especialista en Apps Kotlin y Estrategia Comercial.</p>
         </div>
-
-        <div class="node-card group">
-            <div class="icon-wrapper text-pink-500 group-hover:scale-110 transition duration-500"><i class="fas fa-project-diagram"></i></div>
+        <div class="node-card">
+            <div class="text-5xl text-pink-500 mb-6"><i class="fas fa-project-diagram"></i></div>
             <h3 class="text-2xl font-black mb-2">Ernestina Moreno</h3>
-            <p class="text-[11px] text-pink-500 font-black uppercase tracking-[0.3em] mb-6">Data Intelligence Dir.</p>
-            <p class="text-gray-500 text-sm leading-relaxed">Experta en integración de datos con **Pentaho ETL** y visualización estratégica en **Power BI**.</p>
+            <p class="text-[11px] text-pink-500 font-black uppercase tracking-[0.3em] mb-6">Data Intelligence</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Integración de datos con Pentaho y Power BI.</p>
         </div>
     </section>
 
     <div id="emsaChat" class="emsa-window">
         <div class="bg-gradient-to-r from-blue-700 to-cyan-600 p-5 flex justify-between items-center shadow-lg">
-            <div class="flex items-center gap-3">
-                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span class="font-black text-[10px] tracking-[0.3em] uppercase">EMSA Human-AI</span>
-            </div>
-            <button onclick="toggleEmsa()" class="hover:rotate-90 transition"><i class="fas fa-times"></i></button>
+            <span class="font-black text-[10px] tracking-[0.3em] uppercase">EMSA Human-AI</span>
+            <button onclick="toggleEmsa()"><i class="fas fa-times"></i></button>
         </div>
-        <div id="emsaBody" class="chat-area custom-scroll">
-            <div class="msg-bubble bot-style">
-                ¡Hola! Qué gusto saludarte. Soy **EMSA**, tu consultora virtual en Geobloking Pro. 😊 <br><br>
-                Estoy aquí para escucharte. ¿Tienes algún proyecto en mente o algún proceso que te gustaría automatizar? Cuéntame con confianza.
-            </div>
+        <div id="emsaBody" class="chat-area">
+            <div class="msg-bubble bot-style">¡Hola! Soy EMSA. 😊 ¿En qué tipo de proyecto podemos ayudarte hoy?</div>
         </div>
         <div class="p-4 bg-black/20 border-t border-white/5 flex gap-3">
-            <input type="text" id="emsaInput" placeholder="Escribe tu mensaje aquí..." class="flex-grow bg-transparent outline-none text-xs text-cyan-100 placeholder:text-gray-600">
-            <button onclick="sendEmsa()" class="text-cyan-400 hover:text-white transition"><i class="fas fa-paper-plane"></i></button>
+            <input type="text" id="emsaInput" placeholder="Escribe aquí..." class="flex-grow bg-transparent outline-none text-xs text-white">
+            <button onclick="sendEmsa()" class="text-cyan-400"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
-    <div class="fixed bottom-8 right-8 flex flex-col gap-5">
+    <div id="waMenu">
+        <a href="https://wa.me/56949818809" target="_blank" class="wa-contact-btn" style="background-color: var(--orange);">
+            <i class="fab fa-whatsapp text-lg"></i> Víctor (CEO)
+        </a>
+        <a href="https://wa.me/56945979537" target="_blank" class="wa-contact-btn" style="background-color: var(--cyan);">
+            <i class="fab fa-whatsapp text-lg"></i> Williams (Ventas)
+        </a>
+        <a href="https://wa.me/56973568377" target="_blank" class="wa-contact-btn" style="background-color: var(--pink);">
+            <i class="fab fa-whatsapp text-lg"></i> Ernestina (Adm.)
+        </a>
+    </div>
+
+    <div class="fixed bottom-8 right-8 flex flex-col gap-5 z-[2500]">
         <button onclick="toggleEmsa()" class="w-16 h-16 rounded-3xl bg-pink-500 flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-all active:scale-95"><i class="fas fa-comment-alt"></i></button>
-        <a href="https://wa.me/56949818809" target="_blank" class="w-16 h-16 rounded-3xl bg-[#25D366] flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all active:scale-95"><i class="fab fa-whatsapp"></i></a>
+        <button onclick="toggleWA()" class="w-16 h-16 rounded-3xl bg-[#25D366] flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all active:scale-95"><i class="fab fa-whatsapp"></i></button>
     </div>
 
     <script>
         function toggleEmsa() {
             const chat = document.getElementById('emsaChat');
+            document.getElementById('waMenu').style.display = 'none';
             chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
-            if(chat.style.display === 'flex') document.getElementById('emsaInput').focus();
+        }
+
+        function toggleWA() {
+            const wa = document.getElementById('waMenu');
+            document.getElementById('emsaChat').style.display = 'none';
+            wa.style.display = (wa.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function sendEmsa() {
@@ -143,27 +156,20 @@
             const val = input.value.trim();
             if(!val) return;
 
-            // Renderizar mensaje usuario
             body.innerHTML += `<div class="msg-bubble user-style">${val}</div>`;
             const q = val.toLowerCase();
             input.value = '';
             body.scrollTop = body.scrollHeight;
 
-            // Respuesta humanizada
             setTimeout(() => {
-                let r = "Entiendo perfectamente. Ese tipo de requerimientos son nuestra especialidad. ¿Te parece si coordinamos una breve llamada o seguimos por WhatsApp para ver los detalles técnicos?";
+                let r = "Me parece un excelente punto. Para darte una asesoría profesional, ¿te gustaría hablar directamente con Víctor o Williams por WhatsApp?";
+                if(q.includes("hola")) r = "¡Hola! Qué gusto tenerte por acá. ¿En qué podemos apoyarte hoy?";
+                if(q.includes("biometr")) r = "La biometría facial es clave para la seguridad moderna. Podemos integrarla en apps móviles o sistemas de escritorio. ¿Te interesa para control de asistencia?";
+                if(q.includes("contacto") || q.includes("correo")) r = "Puedes enviarnos un correo formal a **geobloking@gmail.com** o usar el menú de WhatsApp para hablar con nosotros ahora mismo.";
                 
-                if(q.includes("hola") || q.includes("buen")) r = "¡Hola! Es un placer recibirte. ¿Cómo va todo? Cuéntame, ¿qué desafío tecnológico tienes hoy para nosotros?";
-                if(q.includes("biometr") || q.includes("cara") || q.includes("rostro")) r = "La biometría facial es una herramienta increíble para la seguridad y el control. Podemos integrarla directamente a tus sistemas actuales. ¿La necesitas para una empresa o una obra?";
-                if(q.includes("automatiz") || q.includes("bot") || q.includes("ahorrar")) r = "Automatizar procesos con Python es la mejor inversión que puedes hacer. Ayuda a reducir errores y ahorrar mucho tiempo. ¿Qué tarea te gustaría dejar en manos de un bot?";
-                if(q.includes("pago") || q.includes("webpay") || q.includes("vender")) r = "Claro, integrar Webpay es fundamental. Podemos ayudarte a que tus clientes paguen de forma rápida y segura directamente en tu plataforma.";
-                if(q.includes("dato") || q.includes("power bi") || q.includes("excel")) r = "Los datos son oro si se visualizan bien. Con Power BI podemos crear tableros que te digan exactamente qué está pasando en tu negocio en tiempo real.";
-                if(q.includes("quienes") || q.includes("equipo")) r = "Somos un equipo liderado por Víctor (Arquitectura), Williams (Mobile) y Ernestina (Datos). Nos apasiona resolver problemas complejos con código limpio.";
-                if(q.includes("contacto") || q.includes("correo") || q.includes("mail")) r = "¡Perfecto! Puedes escribirnos a **geobloking@gmail.com** o hablar directamente con Víctor al WhatsApp. ¡Estamos listos para empezar!";
-
                 body.innerHTML += `<div class="msg-bubble bot-style">${r}</div>`;
                 body.scrollTop = body.scrollHeight;
-            }, 900);
+            }, 800);
         }
 
         document.getElementById('emsaInput').addEventListener('keypress', (e) => {
