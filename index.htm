@@ -3,254 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geobloking Pro | Ingeniería de Software & Biometría</title>
+    <title>Geobloking Pro | Ingeniería de Software</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
         body { background-color: #0b0521; color: white; font-family: 'Outfit', sans-serif; }
         .hero-bg { background: radial-gradient(circle at top right, #1a0b45 0%, #0b0521 100%); }
+        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-radius: 2rem; transition: 0.4s ease; }
+        .glass-card:hover { border-color: #22d3ee; transform: translateY(-5px); }
+        .btn-neon { background: linear-gradient(90deg, #f97316, #ec4899); box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
         
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(15px); 
-            border-radius: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover { border-color: rgba(6, 182, 212, 0.4); transform: translateY(-5px); }
-
-        .btn-neon { 
-            background: linear-gradient(90deg, #f97316, #ec4899); 
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-            transition: 0.3s;
-        }
-        .btn-neon:hover { opacity: 0.9; transform: scale(1.05); }
-
-        /* Chatbot UI */
-        .emsa-chat-box {
-            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 500px;
-            display: none; flex-direction: column; z-index: 1000; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
+        /* Ajustes Chatbot */
+        .emsa-chat-box { position: fixed; bottom: 100px; right: 30px; width: 320px; height: 480px; display: none; flex-direction: column; z-index: 1000; overflow: hidden; }
+        .emsa-header { background: linear-gradient(90deg, #f97316, #ec4899); padding: 15px; font-weight: 900; }
+        .emsa-body { flex-grow: 1; padding: 15px; overflow-y: auto; background: rgba(11, 5, 33, 0.98); display: flex; flex-direction: column; gap: 10px; }
+        .emsa-input-area { padding: 12px; background: #1a0b45; display: flex; gap: 8px; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0b0521; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .msg { padding: 8px 12px; border-radius: 15px; font-size: 13px; max-width: 85%; line-height: 1.4; }
+        .bot-msg { background: #1e293b; color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-msg { background: #ec4899; color: white; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 600; }
+
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #00d2ff; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px #00d2ff; }
     </style>
 </head>
 <body class="hero-bg min-h-screen">
 
-    <nav class="flex justify-between items-center p-6 md:px-12 sticky top-0 z-[100] backdrop-blur-lg border-b border-white/5">
-        <div class="text-2xl font-black tracking-tighter flex items-center gap-2">
-            <span class="text-white">GEO</span><span class="text-cyan-400">BLOKING</span> <span class="text-pink-500">PRO</span>
+    <nav class="flex justify-between items-center p-6 md:px-12 sticky top-0 z-[100] backdrop-blur-md border-b border-white/5">
+        <div class="text-2xl font-black italic tracking-tighter flex items-center gap-2">
+            <span>GEO</span><span class="text-cyan-400">BLOKING</span> <span class="text-pink-500">PRO</span>
         </div>
-        <div class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-widest text-gray-400">
-            <a href="#inicio" class="hover:text-cyan-400 transition">Inicio</a>
-            <a href="#calculadora" class="hover:text-cyan-400 transition">ROI</a>
-            <a href="#equipo" class="hover:text-cyan-400 transition">Directiva</a>
-            <a href="#privacidad" class="hover:text-cyan-400 transition">Privacidad</a>
+        <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-widest text-gray-400">
+            <a href="#inicio" class="hover:text-cyan-400">Inicio</a>
+            <a href="#calculadora" class="hover:text-cyan-400">ROI</a>
+            <a href="#equipo" class="hover:text-cyan-400">Directiva</a>
             <button class="bg-cyan-500 text-black px-6 py-2 rounded-full font-black hover:bg-white transition">Cotizar</button>
         </div>
     </nav>
 
-    <header id="inicio" class="py-24 text-center px-4">
-        <div class="inline-block px-4 py-1 border border-cyan-500/30 rounded-full text-cyan-400 text-[10px] font-bold uppercase mb-6 tracking-[0.2em]">
-            Innovación en Desarrollo de Software
-        </div>
+    <header id="inicio" class="py-20 text-center px-4">
         <h1 class="text-6xl md:text-8xl font-black mb-6 italic tracking-tighter leading-none">
             GEO<span class="text-cyan-400"><</span>BLOKING<span class="text-pink-500"> PRO</span>
         </h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-10 leading-relaxed">
-            Potenciamos empresas mediante **Automatización 24/7**, pasarelas de pago **Webpay** y sistemas avanzados de **Biometría Facial**.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="#calculadora" class="btn-neon px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest">Ver mi Ahorro</a>
-            <div class="glass-card px-8 py-4 rounded-full font-bold text-xs flex items-center gap-2">
-                <i class="fas fa-envelope text-cyan-400"></i> geobloking@gmail.com
-            </div>
+        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-10">Ingeniería de Software, Automatización 24/7 y Biometría Facial Avanzada.</p>
+        <div class="flex justify-center gap-4">
+            <span class="btn-neon px-8 py-3 rounded-full font-black uppercase text-xs tracking-widest">Tecnología Chilena</span>
+            <span class="glass-card px-8 py-3 rounded-full font-bold text-xs border-white/20">geobloking@gmail.com</span>
         </div>
     </header>
 
-    <section id="calculadora" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto glass-card p-8 md:p-12 border-cyan-500/20">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-black mb-2 uppercase tracking-tight">Calculadora de Impacto</h2>
-                <p class="text-gray-500 text-sm">Descubre cuánto ahorras al automatizar tus procesos con nosotros.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-10">
-                    <div>
-                        <div class="flex justify-between mb-4">
-                            <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Horas manuales / semana</label>
-                            <span id="horasLabel" class="text-cyan-400 font-black text-lg">20 h</span>
-                        </div>
-                        <input type="range" id="horasManuales" min="1" max="100" value="20" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-cyan-400" oninput="calcularAhorro()">
+    <section id="calculadora" class="py-16 px-6 max-w-4xl mx-auto">
+        <div class="glass-card p-10 border-cyan-500/20 shadow-2xl">
+            <h2 class="text-xl font-black mb-8 text-cyan-400 uppercase text-center tracking-[0.2em]">Calculadora de Ahorro</h2>
+            <div class="space-y-10">
+                <div>
+                    <div class="flex justify-between mb-4 text-xs font-bold uppercase text-gray-400">
+                        <label>Horas manuales / semana:</label>
+                        <span id="horasLabel" class="text-cyan-400">20 h</span>
                     </div>
-                    <div>
-                        <div class="flex justify-between mb-4">
-                            <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Costo por hora (CLP)</label>
-                            <span id="costoLabel" class="text-cyan-400 font-black text-lg">$15.000</span>
-                        </div>
-                        <input type="range" id="costoHora" min="5000" max="100000" step="1000" value="15000" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-pink-500" oninput="calcularAhorro()">
-                    </div>
+                    <input type="range" id="horasManuales" min="1" max="100" value="20" oninput="calcularAhorro()">
                 </div>
-                
-                <div class="bg-white/5 rounded-3xl p-8 text-center border border-white/5">
-                    <p class="text-[10px] uppercase font-black text-gray-500 mb-2 tracking-[0.3em]">Ahorro Anual Proyectado</p>
-                    <div id="resultadoAhorro" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
-                        $14.400.000
+                <div>
+                    <div class="flex justify-between mb-4 text-xs font-bold uppercase text-gray-400">
+                        <label>Costo por hora (CLP):</label>
+                        <span id="costoLabel" class="text-cyan-400">$15.000</span>
                     </div>
-                    <p class="mt-4 text-[10px] text-gray-600 italic">*Basado en una eficiencia de optimización del 80%</p>
+                    <input type="range" id="costoHora" min="5000" max="100000" step="1000" value="15000" oninput="calcularAhorro()">
+                </div>
+                <div class="pt-8 border-t border-white/10 text-center">
+                    <p class="text-[10px] uppercase font-black text-gray-500 mb-2">Ahorro anual estimado</p>
+                    <div id="resultadoAhorro" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">$14.400.000</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto">
-        <div class="mb-16">
-            <h2 class="text-4xl font-black italic uppercase tracking-tighter">Directiva Ejecutiva</h2>
-            <div class="h-1 w-20 bg-gradient-to-r from-cyan-400 to-pink-500 mt-2"></div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-8 group text-center border-orange-500/20">
-                <div class="relative w-48 h-48 mx-auto mb-6">
-                    <div class="absolute inset-0 bg-orange-500 rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition"></div>
-                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Victor Donoso Avila" class="relative w-full h-full object-cover rounded-full border-4 border-orange-500 p-1 grayscale group-hover:grayscale-0 transition duration-500">
+    <section id="equipo" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-black mb-16 italic uppercase tracking-widest text-center">Directiva Geobloking</h2>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+            <div class="glass-card p-8 group">
+                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-orange-500 p-1 relative overflow-hidden">
+                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Victor Donoso" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
                 </div>
                 <h3 class="text-xl font-bold">Victor Donoso Avila</h3>
-                <p class="text-orange-500 text-xs font-black uppercase tracking-widest mb-4">CEO & Fundador</p>
-                <p class="text-gray-500 text-[10px] font-mono">Líder en Estrategia de Software</p>
+                <p class="text-orange-500 text-xs font-black uppercase tracking-widest">CEO & Fundador</p>
             </div>
-
-            <div class="glass-card p-8 group text-center border-cyan-500/20">
-                <div class="relative w-48 h-48 mx-auto mb-6">
-                    <div class="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition"></div>
-                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Williams Rhemin Hernandez" class="relative w-full h-full object-cover rounded-full border-4 border-cyan-400 p-1 grayscale group-hover:grayscale-0 transition duration-500">
+            <div class="glass-card p-8 group border-cyan-500/30">
+                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-cyan-500 p-1 relative overflow-hidden">
+                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Williams Rhemin" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
                 </div>
                 <h3 class="text-xl font-bold">Williams Rhemin H.</h3>
-                <p class="text-cyan-400 text-xs font-black uppercase tracking-widest mb-4">Co-CEO & Ventas</p>
-                <p class="text-gray-500 text-[10px] font-mono">Expansión y Relaciones Comerciales</p>
+                <p class="text-cyan-400 text-xs font-black uppercase tracking-widest">Co-CEO & Ventas</p>
             </div>
-
-            <div class="glass-card p-8 group text-center border-pink-500/20">
-                <div class="relative w-48 h-48 mx-auto mb-6">
-                    <div class="absolute inset-0 bg-pink-500 rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition"></div>
-                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Ernestina Moreno Perez" class="relative w-full h-full object-cover rounded-full border-4 border-pink-500 p-1 grayscale group-hover:grayscale-0 transition duration-500">
+            <div class="glass-card p-8 group">
+                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-pink-500 p-1 relative overflow-hidden">
+                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Ernestina Moreno" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
                 </div>
                 <h3 class="text-xl font-bold">Ernestina Moreno P.</h3>
-                <p class="text-pink-500 text-xs font-black uppercase tracking-widest mb-4">Directora Administrativa</p>
-                <p class="text-gray-500 text-[10px] font-mono">Gestión Operativa y Finanzas</p>
+                <p class="text-pink-500 text-xs font-black uppercase tracking-widest">Directora Administrativa</p>
             </div>
         </div>
     </section>
 
-    <section id="privacidad" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto glass-card p-10 border-white/5">
-            <h2 class="text-2xl font-black mb-8 text-pink-500 uppercase italic">Privacidad & Seguridad</h2>
-            <div class="grid gap-6 text-gray-400 text-sm leading-relaxed">
-                <div class="flex gap-4">
-                    <div class="text-cyan-400 mt-1"><i class="fas fa-shield-halved"></i></div>
-                    <div>
-                        <h4 class="text-white font-bold mb-1 uppercase text-xs">Biometría Encriptada</h4>
-                        <p>Los datos faciales se procesan bajo protocolos de encriptación AES-256 para control de asistencia.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="text-cyan-400 mt-1"><i class="fas fa-credit-card"></i></div>
-                    <div>
-                        <h4 class="text-white font-bold mb-1 uppercase text-xs">Cumplimiento Webpay</h4>
-                        <p>No almacenamos datos financieros. Todas las transacciones ocurren en entornos bancarios seguros.</p>
-                    </div>
-                </div>
-            </div>
+    <div id="emsaChat" class="emsa-chat-box glass-card shadow-2xl">
+        <div class="emsa-header flex justify-between items-center text-xs uppercase tracking-widest">
+            <span>EMSA <i class="fas fa-robot"></i></span>
+            <button onclick="toggleEmsa()" class="text-xl">&times;</button>
         </div>
-    </section>
-
-    <footer class="py-12 border-t border-white/5 text-center text-gray-600 text-[10px] uppercase tracking-widest">
-        &copy; 2026 Geobloking SpA. Todos los derechos reservados. Puente Alto, Chile.
-    </footer>
-
-    <div id="emsaChat" class="emsa-chat-box glass-card overflow-hidden">
-        <div class="bg-gradient-to-r from-orange-500 to-pink-500 p-4 flex justify-between items-center">
-            <span class="font-black italic text-xs tracking-widest">ASISTENTE EMSA <i class="fas fa-robot ml-2"></i></span>
-            <button onclick="toggleEmsa()" class="hover:rotate-90 transition"><i class="fas fa-times"></i></button>
+        <div id="emsaBody" class="emsa-body">
+            <div class="msg bot-msg">¡Hola Víctor! Soy EMSA, tu asistente de Geobloking SpA. ¿Cómo puedo ayudarte hoy con software o biometría? 😊</div>
         </div>
-        <div id="emsaBody" class="flex-grow p-4 overflow-y-auto space-y-4 text-xs">
-            <div class="bg-white/5 p-3 rounded-2xl border border-white/10">
-                ¡Hola! Soy **EMSA**, tu asistente inteligente. ¿Te gustaría saber cómo implementar biometría o pagos digitales en tu negocio? 😊
-            </div>
-        </div>
-        <div class="p-3 bg-black/20 flex gap-2">
-            <input type="text" id="emsaInput" placeholder="Escribe tu duda..." class="flex-grow bg-white/5 border border-white/10 rounded-full px-4 py-2 outline-none focus:border-cyan-500 transition">
-            <button onclick="sendEmsa()" class="bg-cyan-500 text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-white transition"><i class="fas fa-paper-plane"></i></button>
+        <div class="emsa-input-area">
+            <input type="text" id="emsaInput" placeholder="Escribe un mensaje..." class="flex-grow bg-white/5 rounded-full px-4 py-2 text-xs outline-none focus:ring-1 ring-cyan-400">
+            <button onclick="sendEmsa()" class="bg-cyan-400 text-black rounded-full w-9 h-9 flex items-center justify-center hover:bg-white transition">
+                <i class="fas fa-paper-plane text-xs"></i>
+            </button>
         </div>
     </div>
 
-    <div id="waMenu" class="fixed bottom-[170px] right-[30px] hidden flex-col gap-3 z-[2000]">
-        <a href="https://wa.me/56949818809" target="_blank" class="flex items-center gap-3 bg-[#25D366] px-5 py-3 rounded-full font-bold text-xs shadow-xl hover:scale-105 transition">
-            <i class="fab fa-whatsapp text-lg"></i> Victor (CEO)
-        </a>
-        <a href="https://wa.me/56945979537" target="_blank" class="flex items-center gap-3 bg-[#25D366] px-5 py-3 rounded-full font-bold text-xs shadow-xl hover:scale-105 transition text-white">
-            <i class="fab fa-whatsapp text-lg"></i> Ventas
+    <div id="waMenu" class="fixed bottom-[170px] right-8 hidden flex-col gap-3 z-[1000]">
+        <a href="https://wa.me/56949818809" target="_blank" class="bg-[#25D366] text-white px-5 py-3 rounded-full font-bold text-xs shadow-xl hover:scale-105 transition flex items-center gap-2">
+            <i class="fab fa-whatsapp"></i> Victor (CEO)
         </a>
     </div>
 
-    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-[2100]">
-        <button onclick="toggleEmsa()" class="w-14 h-14 rounded-full bg-pink-500 flex items-center justify-center text-xl shadow-2xl hover:scale-110 active:scale-95 transition-all">
+    <div class="fixed bottom-6 right-8 flex flex-col gap-4 z-[1100]">
+        <button onclick="toggleEmsa()" class="bg-pink-500 w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-2xl hover:scale-110 active:scale-90 transition">
             <i class="fas fa-comment-dots"></i>
         </button>
-        <button onclick="toggleWA()" class="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center text-2xl shadow-2xl hover:scale-110 active:scale-95 transition-all">
+        <button onclick="toggleWA()" class="bg-green-500 w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 active:scale-90 transition">
             <i class="fab fa-whatsapp"></i>
         </button>
     </div>
 
     <script>
+        // Lógica de la Calculadora
         function calcularAhorro() {
             const h = document.getElementById('horasManuales').value;
             const c = document.getElementById('costoHora').value;
             document.getElementById('horasLabel').innerText = h + " h";
             document.getElementById('costoLabel').innerText = "$" + Number(c).toLocaleString('es-CL');
-            
-            // Cálculo: (Horas * Costo) * 4 semanas * 12 meses * 0.8 eficiencia
-            const ahorro = Math.round(h * c * 4 * 12 * 0.8);
-            document.getElementById('resultadoAhorro').innerText = "$" + ahorro.toLocaleString('es-CL');
+            const total = Math.round(h * c * 4 * 12 * 0.8);
+            document.getElementById('resultadoAhorro').innerText = "$" + total.toLocaleString('es-CL');
         }
 
+        // Toggles
         function toggleEmsa() {
             const c = document.getElementById('emsaChat');
-            document.getElementById('waMenu').classList.add('hidden');
+            document.getElementById('waMenu').style.display = 'none';
             c.style.display = (c.style.display === 'flex') ? 'none' : 'flex';
+            if(c.style.display === 'flex') document.getElementById('emsaInput').focus();
         }
 
         function toggleWA() {
             const w = document.getElementById('waMenu');
             document.getElementById('emsaChat').style.display = 'none';
-            w.classList.toggle('hidden');
-            w.classList.toggle('flex');
+            w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        // LÓGICA DEL BOT EMSA
         function sendEmsa() {
-            const i = document.getElementById('emsaInput');
-            const b = document.getElementById('emsaBody');
-            if(!i.value) return;
+            const input = document.getElementById('emsaInput');
+            const body = document.getElementById('emsaBody');
+            const msg = input.value.trim();
+            
+            if(!msg) return;
 
-            b.innerHTML += `<div class="bg-cyan-500/10 p-3 rounded-2xl ml-8 text-right border border-cyan-500/20">${i.value}</div>`;
-            const query = i.value.toLowerCase();
-            i.value = '';
+            // Mostrar mensaje del usuario
+            body.innerHTML += `<div class="msg user-msg">${msg}</div>`;
+            const query = msg.toLowerCase();
+            input.value = '';
+            body.scrollTop = body.scrollHeight;
 
+            // Respuesta automática
             setTimeout(() => {
-                let r = "Me encanta tu pregunta. ¿Sabías que en Geobloking podemos integrar eso en menos de 2 semanas? 🚀";
-                if(query.includes("biometr")) r = "Nuestra biometría facial detecta rostros en 0.5s y exporta reportes directos a tu Excel o ERP. 👁️";
-                if(query.includes("pago") || query.includes("webpay")) r = "Configuramos tu pasarela Webpay para que recibas el dinero directamente en tu cuenta bancaria. 💳";
+                let res = "Lo entiendo perfectamente. En Geobloking Pro somos expertos en eso. ¿Hablamos por WhatsApp para coordinar? 🚀";
                 
-                b.innerHTML += `<div class="bg-white/5 p-3 rounded-2xl mr-8 border border-white/10">${r}</div>`;
-                b.scrollTop = b.scrollHeight;
-            }, 600);
+                if(query.includes("biometr")) res = "Ofrecemos biometría facial de alta precisión para control de asistencia y seguridad, con integración a Excel. 👁️";
+                if(query.includes("automatiz") || query.includes("software")) res = "Creamos software a medida en Python y Kotlin para automatizar tus tareas repetitivas. 🤖";
+                if(query.includes("hola") || query.includes("que tal")) res = "¡Hola! Soy EMSA. ¿Qué solución tecnológica buscas para tu empresa hoy? 😊";
+                if(query.includes("webpay") || query.includes("pago")) res = "Integramos Webpay Plus y carritos de e-commerce directamente en tu sitio web. 💳";
+
+                body.innerHTML += `<div class="msg bot-msg">${res}</div>`;
+                body.scrollTop = body.scrollHeight;
+            }, 700);
         }
+
+        // Escuchar la tecla Enter
+        document.getElementById('emsaInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendEmsa();
+        });
 
         window.onload = calcularAhorro;
     </script>
