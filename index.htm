@@ -3,183 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geobloking Pro | Enterprise Software & AI Assistant</title>
+    <title>Geobloking Pro | Ingeniería Full Stack & IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;600;900&display=swap');
-        
         :root { --cyan: #22d3ee; --pink: #ec4899; --orange: #f97316; }
         body { background-color: #050214; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-        .code-font { font-family: 'Fira Code', monospace; }
         .hero-mesh { background: radial-gradient(circle at 50% 50%, #1a0b45 0%, #050214 100%); }
-
-        /* Estética de la Directiva */
-        .member-card {
+        
+        /* Diseño de Nodos de Inteligencia (Iconos) */
+        .node-card {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 2rem;
+            border-radius: 2.5rem;
+            padding: 3.5rem 2rem;
+            text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 2.5rem; /* Ajuste del padding */
-            text-align: center; /* Centrar contenido */
         }
-        .member-card:hover {
-            background: rgba(255, 255, 255, 0.04);
+        .node-card:hover {
             border-color: var(--cyan);
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(34, 211, 238, 0.03);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        .robot-photo-frame {
-            width: 150px; height: 150px;
-            margin: 0 auto 1.5rem; /* Centrar y espaciar */
-            border-radius: 50%;
-            padding: 4px;
-            transition: 0.4s;
-            overflow: hidden; /* Asegurar que la imagen no se desborde */
+        .icon-wrapper {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 15px rgba(34, 211, 238, 0.3));
         }
-        .robot-member-photo {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            filter: grayscale(80%); /* ligeramente grisáceo */
-            transition: 0.6s ease-in-out;
-            transform: scale(1); /* Asegurar escala inicial */
-        }
-        .member-card:hover .robot-member-photo { filter: grayscale(0%); transform: scale(1.08); /* Ligeramente más grande al hover */ }
 
-        /* Ranks (se mantienen igual para el branding) */
-        .rank-ceo { border: 3px solid var(--orange); box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
-        .rank-cceo { border: 3px solid var(--cyan); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); }
-        .rank-dir { border: 3px solid var(--pink); box-shadow: 0 0 15px rgba(236, 72, 153, 0.3); }
-
-        /* Terminal UI */
-        .terminal-window {
-            background: rgba(10, 5, 29, 0.95);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        /* Chatbot Humanizado EMSA */
+        .emsa-window {
+            position: fixed; bottom: 100px; right: 30px; width: 360px; height: 520px;
+            background: rgba(10, 5, 29, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            display: none; flex-direction: column; z-index: 2000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            overflow: hidden;
         }
-        .terminal-header { background: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .chat-area { flex-grow: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; font-size: 13px; }
+        .msg-bubble { padding: 12px 16px; border-radius: 1.2rem; max-width: 85%; line-height: 1.6; }
+        .bot-style { background: rgba(255, 255, 255, 0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid rgba(255,255,255,0.08); }
+        .user-style { background: var(--cyan); color: #050214; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 700; }
         
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
     </style>
 </head>
-<body class="hero-mesh">
+<body class="hero-mesh min-h-screen">
 
-    <nav class="fixed w-full z-50 backdrop-blur-xl border-b border-white/5 px-8 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3 group">
-                <div class="bg-cyan-500 w-8 h-8 rounded flex items-center justify-center text-black font-black group-hover:rotate-12 transition">G</div>
-                <span class="font-black text-xl tracking-tighter italic">GEO<span class="text-cyan-400">BLOKING</span> PRO</span>
-            </div>
-            <div class="hidden lg:flex gap-10 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
-                <a href="#stack" class="hover:text-cyan-400 transition">Infrastructure</a>
-                <a href="#bi" class="hover:text-cyan-400 transition">Data-Intelligence</a>
-                <a href="#equipo" class="hover:text-white transition">Directiva</a>
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="https://instagram.com/geobloking" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:geobloking@gmail.com" class="hover:text-cyan-400 transition"><i class="fas fa-envelope text-lg"></i></a>
-            </div>
+    <nav class="fixed w-full z-50 backdrop-blur-2xl border-b border-white/5 px-8 py-5 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-white text-black w-7 h-7 flex items-center justify-center font-black rounded">G</div>
+            <span class="font-black text-xl tracking-tighter italic uppercase">GEO<span class="text-cyan-400">BLOKING</span> PRO</span>
+        </div>
+        <div class="hidden md:flex gap-8 items-center text-[10px] font-black uppercase tracking-[0.3em]">
+            <a href="mailto:geobloking@gmail.com" class="hover:text-cyan-400 transition">geobloking@gmail.com</a>
+            <a href="https://instagram.com/geobloking" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram text-lg"></i></a>
         </div>
     </nav>
 
-    <header class="pt-48 pb-24 px-6 text-center">
-        <div class="max-w-5xl mx-auto">
-            <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 italic uppercase leading-none">
-                Full Stack <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-orange-500">Solutions</span>
+    <header class="pt-48 pb-32 text-center px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter italic leading-none mb-8">
+                TECH <span class="text-cyan-400">EVOLUTION</span>
             </h1>
-            <p class="text-gray-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-12">
-                Python // AWS Cloud // Pentaho ETL // Biometría Facial
+            <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12">
+                Arquitectura de software robusta y biometría avanzada. Humanizamos la tecnología para potenciar tu visión.
             </p>
-            <div class="flex justify-center gap-6">
-                <button onclick="toggleEmsa()" class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-cyan-400 transition transform hover:scale-105">Ejecutar Consola</button>
-                <a href="https://wa.me/56949818809" target="_blank" class="glass-panel border border-white/10 px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-white/5 transition">
-                    <i class="fab fa-whatsapp text-green-500"></i> WhatsApp Link
+            <div class="flex flex-wrap justify-center gap-5">
+                <button onclick="toggleEmsa()" class="bg-cyan-500 text-black px-12 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white transition shadow-lg shadow-cyan-500/20">Iniciar Consulta</button>
+                <a href="https://wa.me/56949818809" target="_blank" class="border border-white/10 px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest flex items-center gap-2 hover:bg-white/5 transition">
+                    <i class="fab fa-whatsapp text-green-500 text-lg"></i> Contacto Directo
                 </a>
             </div>
         </div>
     </header>
 
-    <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-            <div class="text-left">
-                <span class="text-cyan-500 font-black text-[10px] uppercase tracking-[0.5em]">Equipo de Implementación</span>
-                <h2 class="text-4xl font-black italic uppercase tracking-tighter mt-2">Nuestros Analistas IA</h2>
-            </div>
-            <div class="text-gray-600 font-mono text-[9px] uppercase tracking-widest">
-                AI Units: 03 // Status: Online
-            </div>
+    <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 grid md:grid-cols-3 gap-10">
+        <div class="node-card group">
+            <div class="icon-wrapper text-orange-500 group-hover:scale-110 transition duration-500"><i class="fas fa-microchip"></i></div>
+            <h3 class="text-2xl font-black mb-2">Víctor Donoso</h3>
+            <p class="text-[11px] text-orange-500 font-black uppercase tracking-[0.3em] mb-6">CEO & Lead Architect</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Especialista en flujos complejos con **Python** y orquestación de servicios en **AWS Cloud**.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-10">
-            <div class="member-card">
-                <div class="robot-photo-frame rank-ceo">
-                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Analista IA Victor" class="robot-member-photo">
-                </div>
-                <h3 class="text-xl font-black tracking-tight">Víctor Donoso</h3>
-                <p class="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Lead - Arquitectura</p>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Python CORE</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">AWS INFRA</span>
-                </div>
-            </div>
+        <div class="node-card group">
+            <div class="icon-wrapper text-cyan-400 group-hover:scale-110 transition duration-500"><i class="fas fa-mobile-alt"></i></div>
+            <h3 class="text-2xl font-black mb-2">Williams Rhemin</h3>
+            <p class="text-[11px] text-cyan-400 font-black uppercase tracking-[0.3em] mb-6">Co-CEO & Mobile Expert</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Líder en desarrollo de aplicaciones nativas con **Kotlin** y optimización de experiencia de usuario.</p>
+        </div>
 
-            <div class="member-card">
-                <div class="robot-photo-frame rank-cceo">
-                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Analista IA Williams" class="robot-member-photo">
-                </div>
-                <h3 class="text-xl font-black tracking-tight">Williams Rhemin</h3>
-                <p class="text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Co-Lead - Desarrollo</p>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Kotlin DEV</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">API Gateway</span>
-                </div>
-            </div>
-
-            <div class="member-card">
-                <div class="robot-photo-frame rank-dir">
-                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Analista IA Ernestina" class="robot-member-photo">
-                </div>
-                <h3 class="text-xl font-black tracking-tight">Ernestina Moreno</h3>
-                <p class="text-pink-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Lead - Datos</p>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Pentaho ETL</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Power BI</span>
-                </div>
-            </div>
+        <div class="node-card group">
+            <div class="icon-wrapper text-pink-500 group-hover:scale-110 transition duration-500"><i class="fas fa-project-diagram"></i></div>
+            <h3 class="text-2xl font-black mb-2">Ernestina Moreno</h3>
+            <p class="text-[11px] text-pink-500 font-black uppercase tracking-[0.3em] mb-6">Data Intelligence Dir.</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Experta en integración de datos con **Pentaho ETL** y visualización estratégica en **Power BI**.</p>
         </div>
     </section>
 
-    <div id="emsaChat" class="fixed bottom-24 right-8 w-80 md:w-96 h-[520px] terminal-window rounded-3xl hidden flex-col z-[1000] shadow-2xl">
-        <div class="terminal-header p-4 flex justify-between items-center rounded-t-3xl">
-            <div class="flex gap-1.5">
-                <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
-                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
-                <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+    <div id="emsaChat" class="emsa-window">
+        <div class="bg-gradient-to-r from-blue-700 to-cyan-600 p-5 flex justify-between items-center shadow-lg">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="font-black text-[10px] tracking-[0.3em] uppercase">EMSA Human-AI</span>
             </div>
-            <span class="text-[10px] code-font text-cyan-400 font-bold">EMSA_V2.0.sh</span>
-            <button onclick="toggleEmsa()" class="text-gray-500 hover:text-white transition"><i class="fas fa-times"></i></button>
+            <button onclick="toggleEmsa()" class="hover:rotate-90 transition"><i class="fas fa-times"></i></button>
         </div>
-        <div id="emsaBody" class="flex-grow p-5 overflow-y-auto space-y-4 text-[11px] code-font leading-relaxed">
-            <div class="text-cyan-500/80">>> INICIALIZANDO_MODULO_REQUERIMIENTOS...</div>
-            <div class="text-green-500">>> KERNEL: Geobloking_CRM_v1.0</div>
-            <div class="text-white/40 italic">Hola! Soy EMSA, tu asistente virtual. ¿En qué tipo de proyecto podemos ayudarte hoy? (ej: "biometria", "automatizacion", "integracion")</div>
+        <div id="emsaBody" class="chat-area custom-scroll">
+            <div class="msg-bubble bot-style">
+                ¡Hola! Qué gusto saludarte. Soy **EMSA**, tu consultora virtual en Geobloking Pro. 😊 <br><br>
+                Estoy aquí para escucharte. ¿Tienes algún proyecto en mente o algún proceso que te gustaría automatizar? Cuéntame con confianza.
+            </div>
         </div>
-        <div class="p-4 bg-black/40 border-t border-white/5 flex gap-3 rounded-b-3xl">
-            <span class="text-cyan-400 font-bold">$</span>
-            <input type="text" id="emsaInput" placeholder="ingresa tu requerimiento..." class="flex-grow bg-transparent outline-none code-font text-white caret-cyan-400">
+        <div class="p-4 bg-black/20 border-t border-white/5 flex gap-3">
+            <input type="text" id="emsaInput" placeholder="Escribe tu mensaje aquí..." class="flex-grow bg-transparent outline-none text-xs text-cyan-100 placeholder:text-gray-600">
+            <button onclick="sendEmsa()" class="text-cyan-400 hover:text-white transition"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
-    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-[1100]">
-        <button onclick="toggleEmsa()" class="w-14 h-14 rounded-2xl bg-cyan-500 text-black flex items-center justify-center shadow-xl hover:rotate-12 hover:scale-110 transition-all">
-            <i class="fas fa-robot text-xl"></i>
-        </button>
-        <a href="https://wa.me/56949818809" target="_blank" class="w-14 h-14 rounded-2xl bg-[#25D366] text-white flex items-center justify-center text-2xl shadow-xl hover:-rotate-12 hover:scale-110 transition-all">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+    <div class="fixed bottom-8 right-8 flex flex-col gap-5">
+        <button onclick="toggleEmsa()" class="w-16 h-16 rounded-3xl bg-pink-500 flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition-all active:scale-95"><i class="fas fa-comment-alt"></i></button>
+        <a href="https://wa.me/56949818809" target="_blank" class="w-16 h-16 rounded-3xl bg-[#25D366] flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all active:scale-95"><i class="fab fa-whatsapp"></i></a>
     </div>
 
     <script>
@@ -192,35 +140,30 @@
         function sendEmsa() {
             const input = document.getElementById('emsaInput');
             const body = document.getElementById('emsaBody');
-            const val = input.value.trim().toLowerCase();
+            const val = input.value.trim();
             if(!val) return;
 
-            body.innerHTML += `<div class="text-cyan-400 mt-4 font-bold">cliente@requerimientos:~$ ${input.value}</div>`;
+            // Renderizar mensaje usuario
+            body.innerHTML += `<div class="msg-bubble user-style">${val}</div>`;
+            const q = val.toLowerCase();
             input.value = '';
+            body.scrollTop = body.scrollHeight;
 
+            // Respuesta humanizada
             setTimeout(() => {
-                let r = ">> ERROR: Requerimiento no clasificado. Por favor, sé más específico o escribe 'opciones'.";
+                let r = "Entiendo perfectamente. Ese tipo de requerimientos son nuestra especialidad. ¿Te parece si coordinamos una breve llamada o seguimos por WhatsApp para ver los detalles técnicos?";
                 
-                if (val === "opciones" || val === "ayuda" || val === "help") {
-                    r = ">> OPCIONES_DE_SERVICIO: 'biometria', 'automatizacion', 'integracion', 'dashboard', 'contacto', 'clear'.";
-                } else if (val.includes("biometria") || val.includes("reconocimiento facial")) {
-                    r = ">> MODULO_BIOMETRIA_ACTIVO. Necesitas control de acceso, asistencia o seguridad con reconocimiento facial? Podemos integrar SDKs con AWS Rekognition o soluciones on-premise.";
-                } else if (val.includes("automatizacion") || val.includes("procesos") || val.includes("bot")) {
-                    r = ">> MODULO_AUTOMATIZACION_ACTIVO. Buscas automatizar tareas repetitivas, reportes o flujos de trabajo? Python (RPA) es nuestra especialidad.";
-                } else if (val.includes("integracion") || val.includes("api") || val.includes("sistemas")) {
-                    r = ">> MODULO_INTEGRACION_ACTIVO. Necesitas conectar sistemas, APIs de pago (Webpay) o unificar bases de datos? Usamos Java, Python y Pentaho ETL.";
-                } else if (val.includes("dashboard") || val.includes("reportes") || val.includes("analisis")) {
-                    r = ">> MODULO_BUSINESS_INTELLIGENCE_ACTIVO. Quieres transformar tus datos en decisiones? Creamos Dashboards interactivos con Power BI y ETL con Pentaho para una visión 360.";
-                } else if (val.includes("contacto") || val.includes("cotizacion") || val.includes("hablar con alguien")) {
-                    r = ">> REDIRIGIENDO_A_CONTACTO. Puedes escribir directamente a geobloking@gmail.com o enviarnos un WhatsApp al +56949818809. ¡Te esperamos!";
-                } else if (val === "clear") { 
-                    body.innerHTML = '<div class="text-green-500">>> CONSOLA_LIMPIA</div><div class="text-white/40 italic">Hola! Soy EMSA, tu asistente virtual. ¿En qué tipo de proyecto podemos ayudarte hoy? (ej: "biometria", "automatizacion", "integracion")</div>'; 
-                    return; 
-                }
+                if(q.includes("hola") || q.includes("buen")) r = "¡Hola! Es un placer recibirte. ¿Cómo va todo? Cuéntame, ¿qué desafío tecnológico tienes hoy para nosotros?";
+                if(q.includes("biometr") || q.includes("cara") || q.includes("rostro")) r = "La biometría facial es una herramienta increíble para la seguridad y el control. Podemos integrarla directamente a tus sistemas actuales. ¿La necesitas para una empresa o una obra?";
+                if(q.includes("automatiz") || q.includes("bot") || q.includes("ahorrar")) r = "Automatizar procesos con Python es la mejor inversión que puedes hacer. Ayuda a reducir errores y ahorrar mucho tiempo. ¿Qué tarea te gustaría dejar en manos de un bot?";
+                if(q.includes("pago") || q.includes("webpay") || q.includes("vender")) r = "Claro, integrar Webpay es fundamental. Podemos ayudarte a que tus clientes paguen de forma rápida y segura directamente en tu plataforma.";
+                if(q.includes("dato") || q.includes("power bi") || q.includes("excel")) r = "Los datos son oro si se visualizan bien. Con Power BI podemos crear tableros que te digan exactamente qué está pasando en tu negocio en tiempo real.";
+                if(q.includes("quienes") || q.includes("equipo")) r = "Somos un equipo liderado por Víctor (Arquitectura), Williams (Mobile) y Ernestina (Datos). Nos apasiona resolver problemas complejos con código limpio.";
+                if(q.includes("contacto") || q.includes("correo") || q.includes("mail")) r = "¡Perfecto! Puedes escribirnos a **geobloking@gmail.com** o hablar directamente con Víctor al WhatsApp. ¡Estamos listos para empezar!";
 
-                body.innerHTML += `<div class="bg-white/5 p-3 rounded-lg border-l-2 border-cyan-500 text-gray-200 mt-2">${r}</div>`;
+                body.innerHTML += `<div class="msg-bubble bot-style">${r}</div>`;
                 body.scrollTop = body.scrollHeight;
-            }, 800);
+            }, 900);
         }
 
         document.getElementById('emsaInput').addEventListener('keypress', (e) => {
