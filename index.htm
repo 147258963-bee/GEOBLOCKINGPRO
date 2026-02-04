@@ -3,200 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geobloking Pro | Ingeniería de Software</title>
+    <title>Geobloking Pro | Enterprise Engineering Console</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
-        body { background-color: #0b0521; color: white; font-family: 'Outfit', sans-serif; }
-        .hero-bg { background: radial-gradient(circle at top right, #1a0b45 0%, #0b0521 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-radius: 2rem; transition: 0.4s ease; }
-        .glass-card:hover { border-color: #22d3ee; transform: translateY(-5px); }
-        .btn-neon { background: linear-gradient(90deg, #f97316, #ec4899); box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;600;900&display=swap');
         
-        /* Ajustes Chatbot */
-        .emsa-chat-box { position: fixed; bottom: 100px; right: 30px; width: 320px; height: 480px; display: none; flex-direction: column; z-index: 1000; overflow: hidden; }
-        .emsa-header { background: linear-gradient(90deg, #f97316, #ec4899); padding: 15px; font-weight: 900; }
-        .emsa-body { flex-grow: 1; padding: 15px; overflow-y: auto; background: rgba(11, 5, 33, 0.98); display: flex; flex-direction: column; gap: 10px; }
-        .emsa-input-area { padding: 12px; background: #1a0b45; display: flex; gap: 8px; }
-        
-        .msg { padding: 8px 12px; border-radius: 15px; font-size: 13px; max-width: 85%; line-height: 1.4; }
-        .bot-msg { background: #1e293b; color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user-msg { background: #ec4899; color: white; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 600; }
+        :root { --cyan: #22d3ee; --pink: #ec4899; --orange: #f97316; }
+        body { background-color: #050214; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .hero-mesh { background: radial-gradient(circle at 50% 50%, #1a0b45 0%, #050214 100%); }
 
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #00d2ff; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px #00d2ff; }
+        /* Estética de la Directiva */
+        .member-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .member-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--cyan);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .photo-frame {
+            width: 150px; height: 150px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            padding: 4px;
+            transition: 0.4s;
+        }
+        .member-photo {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: grayscale(100%);
+            transition: 0.6s ease-in-out;
+        }
+        .member-card:hover .member-photo { filter: grayscale(0%); }
+
+        /* Ranks */
+        .rank-ceo { border: 3px solid var(--orange); box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
+        .rank-cceo { border: 3px solid var(--cyan); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); }
+        .rank-dir { border: 3px solid var(--pink); box-shadow: 0 0 15px rgba(236, 72, 153, 0.3); }
+
+        /* Terminal UI */
+        .terminal-window {
+            background: rgba(10, 5, 29, 0.95);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            backdrop-filter: blur(20px);
+        }
+        .terminal-header { background: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
     </style>
 </head>
-<body class="hero-bg min-h-screen">
+<body class="hero-mesh">
 
-    <nav class="flex justify-between items-center p-6 md:px-12 sticky top-0 z-[100] backdrop-blur-md border-b border-white/5">
-        <div class="text-2xl font-black italic tracking-tighter flex items-center gap-2">
-            <span>GEO</span><span class="text-cyan-400">BLOKING</span> <span class="text-pink-500">PRO</span>
-        </div>
-        <div class="hidden md:flex space-x-8 text-[10px] font-black uppercase tracking-widest text-gray-400">
-            <a href="#inicio" class="hover:text-cyan-400">Inicio</a>
-            <a href="#calculadora" class="hover:text-cyan-400">ROI</a>
-            <a href="#equipo" class="hover:text-cyan-400">Directiva</a>
-            <button class="bg-cyan-500 text-black px-6 py-2 rounded-full font-black hover:bg-white transition">Cotizar</button>
+    <nav class="fixed w-full z-50 backdrop-blur-xl border-b border-white/5 px-8 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 group">
+                <div class="bg-cyan-500 w-8 h-8 rounded flex items-center justify-center text-black font-black group-hover:rotate-12 transition">G</div>
+                <span class="font-black text-xl tracking-tighter italic">GEO<span class="text-cyan-400">BLOKING</span> PRO</span>
+            </div>
+            <div class="hidden lg:flex gap-10 text-[10px] font-black uppercase tracking-[0.4em] text-gray-500">
+                <a href="#stack" class="hover:text-cyan-400 transition">Infrastructure</a>
+                <a href="#bi" class="hover:text-cyan-400 transition">Data-Intelligence</a>
+                <a href="#equipo" class="hover:text-white transition">Directiva</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://instagram.com/geobloking" target="_blank" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:geobloking@gmail.com" class="hover:text-cyan-400 transition"><i class="fas fa-envelope text-lg"></i></a>
+            </div>
         </div>
     </nav>
 
-    <header id="inicio" class="py-20 text-center px-4">
-        <h1 class="text-6xl md:text-8xl font-black mb-6 italic tracking-tighter leading-none">
-            GEO<span class="text-cyan-400"><</span>BLOKING<span class="text-pink-500"> PRO</span>
-        </h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-10">Ingeniería de Software, Automatización 24/7 y Biometría Facial Avanzada.</p>
-        <div class="flex justify-center gap-4">
-            <span class="btn-neon px-8 py-3 rounded-full font-black uppercase text-xs tracking-widest">Tecnología Chilena</span>
-            <span class="glass-card px-8 py-3 rounded-full font-bold text-xs border-white/20">geobloking@gmail.com</span>
+    <header class="pt-48 pb-24 px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 italic uppercase leading-none">
+                Full Stack <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-pink-500 to-orange-500">Solutions</span>
+            </h1>
+            <p class="text-gray-400 font-mono text-xs md:text-sm tracking-widest uppercase mb-12">
+                Python // AWS Cloud // Pentaho ETL // Biometría Facial
+            </p>
+            <div class="flex justify-center gap-6">
+                <button onclick="toggleEmsa()" class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest hover:bg-cyan-400 transition transform hover:scale-105">Ejecutar Consola</button>
+                <a href="https://wa.me/56949818809" target="_blank" class="glass-panel border border-white/10 px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-white/5 transition">
+                    <i class="fab fa-whatsapp text-green-500"></i> WhatsApp Link
+                </a>
+            </div>
         </div>
     </header>
 
-    <section id="calculadora" class="py-16 px-6 max-w-4xl mx-auto">
-        <div class="glass-card p-10 border-cyan-500/20 shadow-2xl">
-            <h2 class="text-xl font-black mb-8 text-cyan-400 uppercase text-center tracking-[0.2em]">Calculadora de Ahorro</h2>
-            <div class="space-y-10">
-                <div>
-                    <div class="flex justify-between mb-4 text-xs font-bold uppercase text-gray-400">
-                        <label>Horas manuales / semana:</label>
-                        <span id="horasLabel" class="text-cyan-400">20 h</span>
-                    </div>
-                    <input type="range" id="horasManuales" min="1" max="100" value="20" oninput="calcularAhorro()">
+    <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+            <div class="text-left">
+                <span class="text-cyan-500 font-black text-[10px] uppercase tracking-[0.5em]">Liderazgo Corporativo</span>
+                <h2 class="text-4xl font-black italic uppercase tracking-tighter mt-2">Executive Board</h2>
+            </div>
+            <div class="text-gray-600 font-mono text-[9px] uppercase tracking-widest">
+                Nodes: 03 // Status: Verified
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="member-card p-10 text-center">
+                <div class="photo-frame rank-ceo">
+                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Victor Donoso" class="member-photo">
                 </div>
-                <div>
-                    <div class="flex justify-between mb-4 text-xs font-bold uppercase text-gray-400">
-                        <label>Costo por hora (CLP):</label>
-                        <span id="costoLabel" class="text-cyan-400">$15.000</span>
-                    </div>
-                    <input type="range" id="costoHora" min="5000" max="100000" step="1000" value="15000" oninput="calcularAhorro()">
+                <h3 class="text-xl font-black tracking-tight">Victor Donoso Avila</h3>
+                <p class="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">CEO & Founder</p>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Python</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">AWS Architect</span>
                 </div>
-                <div class="pt-8 border-t border-white/10 text-center">
-                    <p class="text-[10px] uppercase font-black text-gray-500 mb-2">Ahorro anual estimado</p>
-                    <div id="resultadoAhorro" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">$14.400.000</div>
+            </div>
+
+            <div class="member-card p-10 text-center">
+                <div class="photo-frame rank-cceo">
+                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Williams Hernandez" class="member-photo">
+                </div>
+                <h3 class="text-xl font-black tracking-tight">Williams Rhemin H.</h3>
+                <p class="text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">Co-CEO & Sales</p>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Android Dev</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Business Strategy</span>
+                </div>
+            </div>
+
+            <div class="member-card p-10 text-center">
+                <div class="photo-frame rank-dir">
+                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Ernestina Moreno" class="member-photo">
+                </div>
+                <h3 class="text-xl font-black tracking-tight">Ernestina Moreno P.</h3>
+                <p class="text-pink-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">Administrative Director</p>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Data Integration</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Fintech Ops</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="equipo" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-3xl font-black mb-16 italic uppercase tracking-widest text-center">Directiva Geobloking</h2>
-        <div class="grid md:grid-cols-3 gap-8 text-center">
-            <div class="glass-card p-8 group">
-                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-orange-500 p-1 relative overflow-hidden">
-                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Victor Donoso" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
-                </div>
-                <h3 class="text-xl font-bold">Victor Donoso Avila</h3>
-                <p class="text-orange-500 text-xs font-black uppercase tracking-widest">CEO & Fundador</p>
+    <div id="emsaChat" class="fixed bottom-24 right-8 w-80 md:w-96 h-[520px] terminal-window rounded-3xl hidden flex-col z-[1000] shadow-2xl">
+        <div class="terminal-header p-4 flex justify-between items-center rounded-t-3xl">
+            <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
             </div>
-            <div class="glass-card p-8 group border-cyan-500/30">
-                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-cyan-500 p-1 relative overflow-hidden">
-                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Williams Rhemin" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
-                </div>
-                <h3 class="text-xl font-bold">Williams Rhemin H.</h3>
-                <p class="text-cyan-400 text-xs font-black uppercase tracking-widest">Co-CEO & Ventas</p>
-            </div>
-            <div class="glass-card p-8 group">
-                <div class="w-40 h-40 mx-auto mb-6 rounded-full border-4 border-pink-500 p-1 relative overflow-hidden">
-                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Ernestina Moreno" class="w-full h-full object-cover rounded-full grayscale group-hover:grayscale-0 transition duration-500">
-                </div>
-                <h3 class="text-xl font-bold">Ernestina Moreno P.</h3>
-                <p class="text-pink-500 text-xs font-black uppercase tracking-widest">Directora Administrativa</p>
-            </div>
+            <span class="text-[10px] code-font text-cyan-400 font-bold">EMSA_V2.0.sh</span>
+            <button onclick="toggleEmsa()" class="text-gray-500 hover:text-white transition"><i class="fas fa-times"></i></button>
         </div>
-    </section>
-
-    <div id="emsaChat" class="emsa-chat-box glass-card shadow-2xl">
-        <div class="emsa-header flex justify-between items-center text-xs uppercase tracking-widest">
-            <span>EMSA <i class="fas fa-robot"></i></span>
-            <button onclick="toggleEmsa()" class="text-xl">&times;</button>
+        <div id="emsaBody" class="flex-grow p-5 overflow-y-auto space-y-4 text-[11px] code-font leading-relaxed">
+            <div class="text-cyan-500/80">>> INICIALIZANDO_ENTORNO...</div>
+            <div class="text-green-500">>> KERNEL: Geobloking_SpA_v26.0.2</div>
+            <div class="text-white/40 italic">Bienvenido, Víctor. Consola lista para recibir comandos. (Escribe 'help' para opciones)</div>
         </div>
-        <div id="emsaBody" class="emsa-body">
-            <div class="msg bot-msg">¡Hola Víctor! Soy EMSA, tu asistente de Geobloking SpA. ¿Cómo puedo ayudarte hoy con software o biometría? 😊</div>
-        </div>
-        <div class="emsa-input-area">
-            <input type="text" id="emsaInput" placeholder="Escribe un mensaje..." class="flex-grow bg-white/5 rounded-full px-4 py-2 text-xs outline-none focus:ring-1 ring-cyan-400">
-            <button onclick="sendEmsa()" class="bg-cyan-400 text-black rounded-full w-9 h-9 flex items-center justify-center hover:bg-white transition">
-                <i class="fas fa-paper-plane text-xs"></i>
-            </button>
+        <div class="p-4 bg-black/40 border-t border-white/5 flex gap-3 rounded-b-3xl">
+            <span class="text-cyan-400 font-bold">$</span>
+            <input type="text" id="emsaInput" placeholder="root@geobloking:~#" class="flex-grow bg-transparent outline-none code-font text-white caret-cyan-400">
         </div>
     </div>
 
-    <div id="waMenu" class="fixed bottom-[170px] right-8 hidden flex-col gap-3 z-[1000]">
-        <a href="https://wa.me/56949818809" target="_blank" class="bg-[#25D366] text-white px-5 py-3 rounded-full font-bold text-xs shadow-xl hover:scale-105 transition flex items-center gap-2">
-            <i class="fab fa-whatsapp"></i> Victor (CEO)
+    <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-[1100]">
+        <button onclick="toggleEmsa()" class="w-14 h-14 rounded-2xl bg-cyan-500 text-black flex items-center justify-center shadow-xl hover:rotate-12 hover:scale-110 transition-all">
+            <i class="fas fa-terminal text-xl"></i>
+        </button>
+        <a href="https://wa.me/56949818809" target="_blank" class="w-14 h-14 rounded-2xl bg-[#25D366] text-white flex items-center justify-center text-2xl shadow-xl hover:-rotate-12 hover:scale-110 transition-all">
+            <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
-    <div class="fixed bottom-6 right-8 flex flex-col gap-4 z-[1100]">
-        <button onclick="toggleEmsa()" class="bg-pink-500 w-14 h-14 rounded-full flex items-center justify-center text-xl shadow-2xl hover:scale-110 active:scale-90 transition">
-            <i class="fas fa-comment-dots"></i>
-        </button>
-        <button onclick="toggleWA()" class="bg-green-500 w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl hover:scale-110 active:scale-90 transition">
-            <i class="fab fa-whatsapp"></i>
-        </button>
-    </div>
-
     <script>
-        // Lógica de la Calculadora
-        function calcularAhorro() {
-            const h = document.getElementById('horasManuales').value;
-            const c = document.getElementById('costoHora').value;
-            document.getElementById('horasLabel').innerText = h + " h";
-            document.getElementById('costoLabel').innerText = "$" + Number(c).toLocaleString('es-CL');
-            const total = Math.round(h * c * 4 * 12 * 0.8);
-            document.getElementById('resultadoAhorro').innerText = "$" + total.toLocaleString('es-CL');
-        }
-
-        // Toggles
         function toggleEmsa() {
-            const c = document.getElementById('emsaChat');
-            document.getElementById('waMenu').style.display = 'none';
-            c.style.display = (c.style.display === 'flex') ? 'none' : 'flex';
-            if(c.style.display === 'flex') document.getElementById('emsaInput').focus();
+            const chat = document.getElementById('emsaChat');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+            if(chat.style.display === 'flex') document.getElementById('emsaInput').focus();
         }
 
-        function toggleWA() {
-            const w = document.getElementById('waMenu');
-            document.getElementById('emsaChat').style.display = 'none';
-            w.style.display = (w.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        // LÓGICA DEL BOT EMSA
         function sendEmsa() {
             const input = document.getElementById('emsaInput');
             const body = document.getElementById('emsaBody');
-            const msg = input.value.trim();
-            
-            if(!msg) return;
+            const val = input.value.trim().toLowerCase();
+            if(!val) return;
 
-            // Mostrar mensaje del usuario
-            body.innerHTML += `<div class="msg user-msg">${msg}</div>`;
-            const query = msg.toLowerCase();
+            body.innerHTML += `<div class="text-cyan-400 mt-4 font-bold">root@console:~$ ${input.value}</div>`;
             input.value = '';
-            body.scrollTop = body.scrollHeight;
 
-            // Respuesta automática
             setTimeout(() => {
-                let res = "Lo entiendo perfectamente. En Geobloking Pro somos expertos en eso. ¿Hablamos por WhatsApp para coordinar? 🚀";
+                let r = "Error: Comando inválido. Ingrese 'help' para ver el directorio de servicios.";
                 
-                if(query.includes("biometr")) res = "Ofrecemos biometría facial de alta precisión para control de asistencia y seguridad, con integración a Excel. 👁️";
-                if(query.includes("automatiz") || query.includes("software")) res = "Creamos software a medida en Python y Kotlin para automatizar tus tareas repetitivas. 🤖";
-                if(query.includes("hola") || query.includes("que tal")) res = "¡Hola! Soy EMSA. ¿Qué solución tecnológica buscas para tu empresa hoy? 😊";
-                if(query.includes("webpay") || query.includes("pago")) res = "Integramos Webpay Plus y carritos de e-commerce directamente en tu sitio web. 💳";
+                if(val === "help") r = "Servicios disponibles: [stack], [aws], [bi], [pos], [contacto], [clear].";
+                if(val === "stack") r = "Environment: Python 3.10, Java 17 (Spring), Kotlin, MySQL 8.0, MongoDB Atlas. DevOps: Git, AWS RDS.";
+                if(val === "aws") r = "Cloud Status: [RDS: Online] [IAM: Secure] [CloudWatch: Monitoring]. Región: us-east-1.";
+                if(val === "bi") r = "Generando vista... Power BI Pro Dashboard embebido. ETL Pipelines: Pentaho Kettle (Sincronización activa).";
+                if(val === "pos") r = "Solución POS para Minimarkets: Python Backend + React/JS Frontend + Hardware integration.";
+                if(val === "contacto") r = "Redirigiendo... CEO Victor: +56949818809 | IG: @geobloking | Mail: geobloking@gmail.com";
+                if(val === "clear") { body.innerHTML = '<div class="text-green-500">>> CONSOLA_LIMPIA</div>'; return; }
 
-                body.innerHTML += `<div class="msg bot-msg">${res}</div>`;
+                body.innerHTML += `<div class="bg-white/5 p-3 rounded-lg border-l-2 border-cyan-500 text-gray-200 mt-2">${r}</div>`;
                 body.scrollTop = body.scrollHeight;
-            }, 700);
+            }, 600);
         }
 
-        // Escuchar la tecla Enter
         document.getElementById('emsaInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendEmsa();
+            if(e.key === 'Enter') sendEmsa();
         });
-
-        window.onload = calcularAhorro;
     </script>
 </body>
 </html>
