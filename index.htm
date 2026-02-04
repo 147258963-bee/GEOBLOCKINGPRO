@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geobloking Pro | Enterprise Engineering Console</title>
+    <title>Geobloking Pro | Enterprise Software & AI Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -20,6 +20,8 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 2rem;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 2.5rem; /* Ajuste del padding */
+            text-align: center; /* Centrar contenido */
         }
         .member-card:hover {
             background: rgba(255, 255, 255, 0.04);
@@ -27,23 +29,25 @@
             transform: translateY(-12px) scale(1.02);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        .photo-frame {
+        .robot-photo-frame {
             width: 150px; height: 150px;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1.5rem; /* Centrar y espaciar */
             border-radius: 50%;
             padding: 4px;
             transition: 0.4s;
+            overflow: hidden; /* Asegurar que la imagen no se desborde */
         }
-        .member-photo {
+        .robot-member-photo {
             width: 100%; height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            filter: grayscale(100%);
+            filter: grayscale(80%); /* ligeramente grisáceo */
             transition: 0.6s ease-in-out;
+            transform: scale(1); /* Asegurar escala inicial */
         }
-        .member-card:hover .member-photo { filter: grayscale(0%); }
+        .member-card:hover .robot-member-photo { filter: grayscale(0%); transform: scale(1.08); /* Ligeramente más grande al hover */ }
 
-        /* Ranks */
+        /* Ranks (se mantienen igual para el branding) */
         .rank-ceo { border: 3px solid var(--orange); box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
         .rank-cceo { border: 3px solid var(--cyan); box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); }
         .rank-dir { border: 3px solid var(--pink); box-shadow: 0 0 15px rgba(236, 72, 153, 0.3); }
@@ -53,6 +57,7 @@
             background: rgba(10, 5, 29, 0.95);
             border: 1px solid rgba(34, 211, 238, 0.2);
             backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .terminal-header { background: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         
@@ -100,48 +105,48 @@
     <section id="equipo" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
         <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
             <div class="text-left">
-                <span class="text-cyan-500 font-black text-[10px] uppercase tracking-[0.5em]">Liderazgo Corporativo</span>
-                <h2 class="text-4xl font-black italic uppercase tracking-tighter mt-2">Executive Board</h2>
+                <span class="text-cyan-500 font-black text-[10px] uppercase tracking-[0.5em]">Equipo de Implementación</span>
+                <h2 class="text-4xl font-black italic uppercase tracking-tighter mt-2">Nuestros Analistas IA</h2>
             </div>
             <div class="text-gray-600 font-mono text-[9px] uppercase tracking-widest">
-                Nodes: 03 // Status: Verified
+                AI Units: 03 // Status: Online
             </div>
         </div>
 
         <div class="grid md:grid-cols-3 gap-10">
-            <div class="member-card p-10 text-center">
-                <div class="photo-frame rank-ceo">
-                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Victor Donoso" class="member-photo">
+            <div class="member-card">
+                <div class="robot-photo-frame rank-ceo">
+                    <img src="https://i.ibb.co/VMybJd1/victor.png" alt="Analista IA Victor" class="robot-member-photo">
                 </div>
-                <h3 class="text-xl font-black tracking-tight">Victor Donoso Avila</h3>
-                <p class="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">CEO & Founder</p>
+                <h3 class="text-xl font-black tracking-tight">Víctor Donoso</h3>
+                <p class="text-orange-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Lead - Arquitectura</p>
                 <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Python</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">AWS Architect</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Python CORE</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">AWS INFRA</span>
                 </div>
             </div>
 
-            <div class="member-card p-10 text-center">
-                <div class="photo-frame rank-cceo">
-                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Williams Hernandez" class="member-photo">
+            <div class="member-card">
+                <div class="robot-photo-frame rank-cceo">
+                    <img src="https://i.ibb.co/k2c5g9r/williams.png" alt="Analista IA Williams" class="robot-member-photo">
                 </div>
-                <h3 class="text-xl font-black tracking-tight">Williams Rhemin H.</h3>
-                <p class="text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">Co-CEO & Sales</p>
+                <h3 class="text-xl font-black tracking-tight">Williams Rhemin</h3>
+                <p class="text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Co-Lead - Desarrollo</p>
                 <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Android Dev</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Business Strategy</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Kotlin DEV</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">API Gateway</span>
                 </div>
             </div>
 
-            <div class="member-card p-10 text-center">
-                <div class="photo-frame rank-dir">
-                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Ernestina Moreno" class="member-photo">
+            <div class="member-card">
+                <div class="robot-photo-frame rank-dir">
+                    <img src="https://i.ibb.co/wJg7g1t/ernestina.png" alt="Analista IA Ernestina" class="robot-member-photo">
                 </div>
-                <h3 class="text-xl font-black tracking-tight">Ernestina Moreno P.</h3>
-                <p class="text-pink-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">Administrative Director</p>
+                <h3 class="text-xl font-black tracking-tight">Ernestina Moreno</h3>
+                <p class="text-pink-500 text-[10px] font-black uppercase tracking-[0.3em] mt-2 mb-6">AI Lead - Datos</p>
                 <div class="flex flex-wrap justify-center gap-2">
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Data Integration</span>
-                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Fintech Ops</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Pentaho ETL</span>
+                    <span class="text-[8px] border border-white/10 px-2 py-1 rounded font-mono opacity-50">Power BI</span>
                 </div>
             </div>
         </div>
@@ -158,19 +163,19 @@
             <button onclick="toggleEmsa()" class="text-gray-500 hover:text-white transition"><i class="fas fa-times"></i></button>
         </div>
         <div id="emsaBody" class="flex-grow p-5 overflow-y-auto space-y-4 text-[11px] code-font leading-relaxed">
-            <div class="text-cyan-500/80">>> INICIALIZANDO_ENTORNO...</div>
-            <div class="text-green-500">>> KERNEL: Geobloking_SpA_v26.0.2</div>
-            <div class="text-white/40 italic">Bienvenido, Víctor. Consola lista para recibir comandos. (Escribe 'help' para opciones)</div>
+            <div class="text-cyan-500/80">>> INICIALIZANDO_MODULO_REQUERIMIENTOS...</div>
+            <div class="text-green-500">>> KERNEL: Geobloking_CRM_v1.0</div>
+            <div class="text-white/40 italic">Hola! Soy EMSA, tu asistente virtual. ¿En qué tipo de proyecto podemos ayudarte hoy? (ej: "biometria", "automatizacion", "integracion")</div>
         </div>
         <div class="p-4 bg-black/40 border-t border-white/5 flex gap-3 rounded-b-3xl">
             <span class="text-cyan-400 font-bold">$</span>
-            <input type="text" id="emsaInput" placeholder="root@geobloking:~#" class="flex-grow bg-transparent outline-none code-font text-white caret-cyan-400">
+            <input type="text" id="emsaInput" placeholder="ingresa tu requerimiento..." class="flex-grow bg-transparent outline-none code-font text-white caret-cyan-400">
         </div>
     </div>
 
     <div class="fixed bottom-8 right-8 flex flex-col gap-4 z-[1100]">
         <button onclick="toggleEmsa()" class="w-14 h-14 rounded-2xl bg-cyan-500 text-black flex items-center justify-center shadow-xl hover:rotate-12 hover:scale-110 transition-all">
-            <i class="fas fa-terminal text-xl"></i>
+            <i class="fas fa-robot text-xl"></i>
         </button>
         <a href="https://wa.me/56949818809" target="_blank" class="w-14 h-14 rounded-2xl bg-[#25D366] text-white flex items-center justify-center text-2xl shadow-xl hover:-rotate-12 hover:scale-110 transition-all">
             <i class="fab fa-whatsapp"></i>
@@ -190,23 +195,32 @@
             const val = input.value.trim().toLowerCase();
             if(!val) return;
 
-            body.innerHTML += `<div class="text-cyan-400 mt-4 font-bold">root@console:~$ ${input.value}</div>`;
+            body.innerHTML += `<div class="text-cyan-400 mt-4 font-bold">cliente@requerimientos:~$ ${input.value}</div>`;
             input.value = '';
 
             setTimeout(() => {
-                let r = "Error: Comando inválido. Ingrese 'help' para ver el directorio de servicios.";
+                let r = ">> ERROR: Requerimiento no clasificado. Por favor, sé más específico o escribe 'opciones'.";
                 
-                if(val === "help") r = "Servicios disponibles: [stack], [aws], [bi], [pos], [contacto], [clear].";
-                if(val === "stack") r = "Environment: Python 3.10, Java 17 (Spring), Kotlin, MySQL 8.0, MongoDB Atlas. DevOps: Git, AWS RDS.";
-                if(val === "aws") r = "Cloud Status: [RDS: Online] [IAM: Secure] [CloudWatch: Monitoring]. Región: us-east-1.";
-                if(val === "bi") r = "Generando vista... Power BI Pro Dashboard embebido. ETL Pipelines: Pentaho Kettle (Sincronización activa).";
-                if(val === "pos") r = "Solución POS para Minimarkets: Python Backend + React/JS Frontend + Hardware integration.";
-                if(val === "contacto") r = "Redirigiendo... CEO Victor: +56949818809 | IG: @geobloking | Mail: geobloking@gmail.com";
-                if(val === "clear") { body.innerHTML = '<div class="text-green-500">>> CONSOLA_LIMPIA</div>'; return; }
+                if (val === "opciones" || val === "ayuda" || val === "help") {
+                    r = ">> OPCIONES_DE_SERVICIO: 'biometria', 'automatizacion', 'integracion', 'dashboard', 'contacto', 'clear'.";
+                } else if (val.includes("biometria") || val.includes("reconocimiento facial")) {
+                    r = ">> MODULO_BIOMETRIA_ACTIVO. Necesitas control de acceso, asistencia o seguridad con reconocimiento facial? Podemos integrar SDKs con AWS Rekognition o soluciones on-premise.";
+                } else if (val.includes("automatizacion") || val.includes("procesos") || val.includes("bot")) {
+                    r = ">> MODULO_AUTOMATIZACION_ACTIVO. Buscas automatizar tareas repetitivas, reportes o flujos de trabajo? Python (RPA) es nuestra especialidad.";
+                } else if (val.includes("integracion") || val.includes("api") || val.includes("sistemas")) {
+                    r = ">> MODULO_INTEGRACION_ACTIVO. Necesitas conectar sistemas, APIs de pago (Webpay) o unificar bases de datos? Usamos Java, Python y Pentaho ETL.";
+                } else if (val.includes("dashboard") || val.includes("reportes") || val.includes("analisis")) {
+                    r = ">> MODULO_BUSINESS_INTELLIGENCE_ACTIVO. Quieres transformar tus datos en decisiones? Creamos Dashboards interactivos con Power BI y ETL con Pentaho para una visión 360.";
+                } else if (val.includes("contacto") || val.includes("cotizacion") || val.includes("hablar con alguien")) {
+                    r = ">> REDIRIGIENDO_A_CONTACTO. Puedes escribir directamente a geobloking@gmail.com o enviarnos un WhatsApp al +56949818809. ¡Te esperamos!";
+                } else if (val === "clear") { 
+                    body.innerHTML = '<div class="text-green-500">>> CONSOLA_LIMPIA</div><div class="text-white/40 italic">Hola! Soy EMSA, tu asistente virtual. ¿En qué tipo de proyecto podemos ayudarte hoy? (ej: "biometria", "automatizacion", "integracion")</div>'; 
+                    return; 
+                }
 
                 body.innerHTML += `<div class="bg-white/5 p-3 rounded-lg border-l-2 border-cyan-500 text-gray-200 mt-2">${r}</div>`;
                 body.scrollTop = body.scrollHeight;
-            }, 600);
+            }, 800);
         }
 
         document.getElementById('emsaInput').addEventListener('keypress', (e) => {
