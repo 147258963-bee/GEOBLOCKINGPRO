@@ -12,7 +12,7 @@
         body { background-color: #050214; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
         .hero-mesh { background: radial-gradient(circle at 50% 50%, #1a0b45 0%, #050214 100%); }
         
-        /* Diseño de Nodos de Inteligencia */
+        /* Diseño de Nodos */
         .node-card {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -27,7 +27,7 @@
             transform: translateY(-15px);
         }
 
-        /* Chatbot Humanizado EMSA */
+        /* Chatbot EMSA */
         .emsa-window {
             position: fixed; bottom: 100px; right: 30px; width: 360px; height: 520px;
             background: rgba(10, 5, 29, 0.98);
@@ -42,7 +42,7 @@
         .bot-style { background: rgba(255, 255, 255, 0.05); color: #e5e7eb; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid rgba(255,255,255,0.08); }
         .user-style { background: var(--cyan); color: #050214; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 700; }
         
-        /* Menú de WhatsApp Flotante */
+        /* Menú WhatsApp */
         #waMenu {
             position: fixed; bottom: 170px; right: 30px;
             display: none; flex-direction: column; gap: 12px; z-index: 2100;
@@ -74,7 +74,7 @@
                 TECH <span class="text-cyan-400">EVOLUTION</span>
             </h1>
             <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12">
-                Arquitectura de software robusta y biometría avanzada. Humanizamos la tecnología para potenciar tu visión.
+                Arquitectura de software robusta, seguridad perimetral y biometría avanzada. Humanizamos la tecnología para potenciar tu visión.
             </p>
             <div class="flex flex-wrap justify-center gap-5">
                 <button onclick="toggleEmsa()" class="bg-cyan-500 text-black px-12 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white transition shadow-lg shadow-cyan-500/20">Iniciar Consulta IA</button>
@@ -106,23 +106,53 @@
         </div>
     </section>
 
+    <section id="infraestructura" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5">
+        <div class="text-center mb-16">
+            <h2 class="text-5xl md:text-7xl font-black italic tracking-tighter mb-4 uppercase">HARDWARE & <span class="text-cyan-400">SECURITY</span></h2>
+            <p class="text-gray-400 max-w-xl mx-auto uppercase text-[10px] tracking-[0.4em]">Protección física inteligente para activos críticos</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="node-card !py-12">
+                <div class="text-4xl text-cyan-400 mb-4"><i class="fas fa-video"></i></div>
+                <h4 class="text-xl font-bold mb-3 uppercase tracking-tight">CCTV Profesional</h4>
+                <p class="text-gray-500 text-xs leading-relaxed">Instalación de cámaras de alta resolución con analítica avanzada e integración móvil.</p>
+            </div>
+            <div class="node-card !py-12">
+                <div class="text-4xl text-pink-500 mb-4"><i class="fas fa-fingerprint"></i></div>
+                <h4 class="text-xl font-bold mb-3 uppercase tracking-tight">Biometría</h4>
+                <p class="text-gray-500 text-xs leading-relaxed">Control de acceso mediante reconocimiento facial y dactilar de alta precisión.</p>
+            </div>
+            <div class="node-card !py-12">
+                <div class="text-4xl text-orange-500 mb-4"><i class="fas fa-bolt"></i></div>
+                <h4 class="text-xl font-bold mb-3 uppercase tracking-tight">Cercos Eléctricos</h4>
+                <p class="text-gray-500 text-xs leading-relaxed">Seguridad perimetral certificada con sistemas de alarma disuasiva inmediata.</p>
+            </div>
+            <div class="node-card !py-12">
+                <div class="text-4xl text-white mb-4"><i class="fas fa-random"></i></div>
+                <h4 class="text-xl font-bold mb-3 uppercase tracking-tight">Automatización</h4>
+                <p class="text-gray-500 text-xs leading-relaxed">Sistemas inteligentes para portones, barreras vehiculares y control de flujo.</p>
+            </div>
+        </div>
+    </section>
+
     <div id="emsaChat" class="emsa-window">
         <div class="bg-gradient-to-r from-blue-700 to-cyan-600 p-5 flex justify-between items-center shadow-lg">
             <span class="font-black text-[10px] tracking-[0.3em] uppercase">EMSA Human-AI</span>
             <button onclick="toggleEmsa()"><i class="fas fa-times"></i></button>
         </div>
         <div id="emsaBody" class="chat-area">
-            <div class="msg-bubble bot-style">¡Hola! Soy EMSA. 😊 ¿En qué tipo de proyecto podemos ayudarte hoy?</div>
+            <div class="msg-bubble bot-style">¡Hola! Soy EMSA. 😊 ¿Buscas software a medida o necesitas proteger tu espacio con CCTV y biometría?</div>
         </div>
         <div class="p-4 bg-black/20 border-t border-white/5 flex gap-3">
-            <input type="text" id="emsaInput" placeholder="Escribe aquí..." class="flex-grow bg-transparent outline-none text-xs text-white">
+            <input type="text" id="emsaInput" placeholder="Pregúntame por CCTV, portones o biometría..." class="flex-grow bg-transparent outline-none text-xs text-white">
             <button onclick="sendEmsa()" class="text-cyan-400"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <div id="waMenu">
         <a href="https://wa.me/56949818809" target="_blank" class="wa-contact-btn" style="background-color: var(--orange);">
-            <i class="fab fa-whatsapp text-lg"></i> Víctor (CEO)
+            <i class="fab fa-whatsapp text-lg"></i> Víctor (Proyectos/CCTV)
         </a>
         <a href="https://wa.me/56945979537" target="_blank" class="wa-contact-btn" style="background-color: var(--cyan);">
             <i class="fab fa-whatsapp text-lg"></i> Williams (Ventas)
@@ -162,10 +192,14 @@
             body.scrollTop = body.scrollHeight;
 
             setTimeout(() => {
-                let r = "Me parece un excelente punto. Para darte una asesoría profesional, ¿te gustaría hablar directamente con Víctor o Williams por WhatsApp?";
-                if(q.includes("hola")) r = "¡Hola! Qué gusto tenerte por acá. ¿En qué podemos apoyarte hoy?";
-                if(q.includes("biometr")) r = "La biometría facial es clave para la seguridad moderna. Podemos integrarla en apps móviles o sistemas de escritorio. ¿Te interesa para control de asistencia?";
-                if(q.includes("contacto") || q.includes("correo")) r = "Puedes enviarnos un correo formal a **geobloking@gmail.com** o usar el menú de WhatsApp para hablar con nosotros ahora mismo.";
+                let r = "Entendido. Para darte una solución técnica precisa, ¿te gustaría hablar con Víctor o Williams por WhatsApp?";
+                
+                if(q.includes("hola")) r = "¡Hola! Un gusto saludarte. Tenemos soluciones en CCTV, biometría, cercos eléctricos y automatización. ¿En qué te asesoro?";
+                if(q.includes("cctv") || q.includes("camara")) r = "En Geobloking Pro instalamos CCTV con visión nocturna, analítica de movimiento y acceso desde tu celular. ¿Es para hogar o empresa?";
+                if(q.includes("biometr")) r = "Manejamos tecnología de punta en control de acceso biométrico (rostro, huella y tarjeta). Ideal para control de asistencia.";
+                if(q.includes("cerco")) r = "Instalamos cercos eléctricos bajo norma SEC, con energizadores inteligentes que te avisan al celular en caso de intrusión.";
+                if(q.includes("porton") || q.includes("barrera") || q.includes("automatiza")) r = "Automatizamos todo tipo de accesos: portones corredera, batientes y barreras de estacionamiento de alta velocidad.";
+                if(q.includes("contacto") || q.includes("correo")) r = "Escríbenos a **geobloking@gmail.com** o selecciona el botón de WhatsApp para hablar directamente con el área correspondiente.";
                 
                 body.innerHTML += `<div class="msg-bubble bot-style">${r}</div>`;
                 body.scrollTop = body.scrollHeight;
